@@ -1,0 +1,145 @@
+/* ==========================================================================
+   orbit.css — glass cards orbiting the portrait (DOM built by js/orbit.js)
+   Nothing on .orbit / .orbit__scene / .orbit__ring may set opacity, filter
+   or overflow: any of those flattens the 3D scene.
+   ========================================================================== */
+
+/* Perspective camera (perspective + origin are set per frame in JS) */
+.orbit { position: absolute; inset: 0; }
+
+.orbit__scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* The portrait is a plane at z = 0, so it hides cards passing behind the head */
+.orbit__subject {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(0);
+}
+
+.orbit__ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* One slot on the ring; each card is split into hinged strips so it can curl */
+.orbit__slot,
+.orbit__curve,
+.orbit__hinge { position: absolute; transform-style: preserve-3d; }
+.orbit__curve { top: 0; width: 0; height: 100%; }
+.orbit__hinge { top: 0; }
+.orbit__face  { position: absolute; opacity: 0; }
+.orbit__clip  { position: absolute; }
+
+/* ---------- Panels ---------- */
+.panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.panel--glass,
+.panel--card {
+  border: 1.5px solid rgb(255 255 255 / .75);
+  background: linear-gradient(140deg, rgb(255 255 255 / .82), rgb(236 238 235 / .55) 55%, rgb(255 255 255 / .7));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / .95),
+    inset 0 -1px 0 rgb(31 35 33 / .06),
+    0 6px 14px -8px rgb(31 35 33 / .28);
+}
+
+.panel--card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+}
+.panel__sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(125deg, rgb(255 255 255 / .7) 0%, rgb(255 255 255 / 0) 38%, rgb(255 255 255 / .2) 60%, rgb(255 255 255 / 0) 74%);
+}
+.panel__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(150deg, #8DBE85, #4F8A55);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .35), 0 6px 12px -6px rgb(47 69 54 / .6);
+}
+.panel__icon svg { width: 18px; height: 18px; }
+
+.panel__text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+.panel__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+.panel__caption {
+  margin-top: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11.5px;
+  color: var(--color-ink-2);
+}
+
+/* Compact cards on narrow rings */
+.panel--compact { gap: 8px; padding: 0 10px; }
+.panel--compact .panel__icon { width: 24px; height: 24px; }
+.panel--compact .panel__icon svg { width: 14px; height: 14px; }
+.panel--compact .panel__title { font-size: 10.5px; }
+.panel--compact .panel__caption { font-size: 8.5px; }
+
+/* Picture panels */
+.panel--img {
+  border: 1.5px solid rgb(255 255 255 / .85);
+  background: #1F2321;
+  box-shadow: 0 6px 14px -8px rgb(31 35 33 / .35);
+}
+.panel--img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+.panel__gloss {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgb(255 255 255 / .35), rgb(255 255 255 / 0) 40%);
+}
+.panel--mist {
+  background:
+    radial-gradient(120% 70% at 50% 115%, #3F5F45 0 38%, transparent 39%),
+    radial-gradient(90% 60% at 20% 100%, #7C9C7F 0 40%, transparent 41%),
+    linear-gradient(180deg, #F4F6F2, #D3DDD0);
+}

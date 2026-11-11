@@ -1,0 +1,161 @@
+/* ==========================================================================
+   about.css — About section, entered by the camera push into the hero
+   (js/about.js). Layout and resting states only: every animated starting state
+   is set in JS, so with no JS or with reduced motion everything shows.
+
+   Colour: the section owns two variables that js/about.js crossfades at the
+   end of the section (dark → off-white) so the next section starts light.
+   They are rgb() with commas so GSAP can tween them.
+   ========================================================================== */
+
+.about {
+  --about-bg: rgb(240, 241, 239); /* #F0F1EF, the colour the hero transitions to */
+  --about-fg: rgb(31, 35, 33);    /* ink text on the light background */
+  --about-line: color-mix(in srgb, var(--about-fg) 12%, transparent);
+
+  position: relative;
+  background: var(--about-bg);
+  color: var(--about-fg);
+}
+
+/* ---------- Shared bits ---------- */
+.about em {
+  font-style: italic;
+  color: var(--color-sage);
+}
+
+/* ---------- 2. One-screen story: portrait, text, stats ----------
+   The whole section is one screen tall. Type and spacing are written as
+   base × --k; js/about.js lowers --k (never below 0.6) only as far as needed for
+   the content to fit the screen, so nothing is cut off and nothing scrolls inside.
+   Without JS, --k stays 1 and the section simply grows. */
+.about-story {
+  --k: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-block: calc(clamp(20px, 6vh, 80px) * var(--k));
+}
+/* Wraps all the content so js/about.js can hold it still on screen while the
+   section rises in; it is laid out exactly as the section used to be */
+.about-story__inner {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(clamp(16px, 4vh, 48px) * var(--k));
+}
+
+/* in a flex column, auto side margins would shrink the containers to their content */
+.about-story__inner > .container { width: 100%; }
+
+.story {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 4fr 6fr; /* 40 / 60 */
+  column-gap: clamp(32px, 5vw, 96px);
+}
+
+/* Portrait: fills the height the text leaves it */
+.story__media {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(12px * var(--k));
+}
+.story__frame {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #c4c2c1; /* matches the photo's light grey backdrop while it loads */
+}
+/* Absolutely placed so the photo's own 3:4 height never sets the row height:
+   the frame takes whatever height the text leaves and the photo covers it */
+.story__frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%; /* keep the face in frame when the column crops the photo */
+}
+/* About text: an opening serif line, three body paragraphs, a serif closing line */
+.story__text {
+  min-height: 0;
+  max-width: 62ch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(clamp(12px, 2.4vh, 28px) * var(--k));
+}
+.story__lead {
+  font-family: var(--font-serif);
+  font-size: calc(clamp(26px, min(2.8vw, 5vh), 52px) * var(--k));
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.story__body {
+  font-size: max(13px, calc(clamp(14px, min(1.15vw, 2vh), 18px) * var(--k)));
+  line-height: 1.6;
+  opacity: .7;
+}
+.story__close {
+  font-family: var(--font-serif);
+  font-size: calc(clamp(22px, min(2.2vw, 4vh), 40px) * var(--k));
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- 3. Stats: in the text column, under the closing line ---------- */
+.stats { margin-top: calc(clamp(8px, 2vh, 24px) * var(--k)); }
+/* No borders: just the three numbers in a row */
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.stat:first-child { padding-left: 0; } /* first number lines up with the text */
+.stat {
+  display: flex;
+  flex-direction: column-reverse; /* number above label; the label stays first for screen readers */
+  justify-content: flex-end;      /* (reversed axis) numbers line up at the top even if a label wraps */
+  gap: calc(clamp(4px, 1vh, 10px) * var(--k));
+  padding: calc(clamp(10px, 2.4vh, 32px) * var(--k)) clamp(14px, 2.2vw, 40px);
+}
+.stat__value {
+  font-family: var(--font-serif);
+  font-size: calc(clamp(32px, min(4.6vw, 7.5vh), 88px) * var(--k));
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.stat__label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: .6;
+}
+
+/* ---------- Phones / small tablets ----------
+   Portrait as a band on top, text below, stats 2 × 2 */
+@media (max-width: 860px) {
+  .story {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    row-gap: calc(16px * var(--k));
+  }
+  .story__frame {
+    flex: none;
+    height: calc(clamp(150px, 30vh, 340px) * var(--k));
+  }
+  .story__text { max-width: none; }
+  .story__lead { font-size: calc(clamp(22px, 6.4vw, 32px) * var(--k)); }
+  .story__close { font-size: calc(clamp(20px, 5.6vw, 28px) * var(--k)); }
+  .story__body { font-size: max(13px, calc(15px * var(--k))); }
+  /* three stats stay in one row on phones too */
+  .stat { padding-inline: 12px; }
+  .stat:first-child { padding-left: 0; }
+}

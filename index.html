@@ -1,17 +1,201 @@
 <!doctype html>
 <html lang="en-IN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Jibin Johnson | Web Developer, SEO Specialist &amp; AI Developer</title>
-    <meta name="description" content="Jibin Johnson builds fast websites, grows Google visibility and creates AI chatbots for businesses. Websites, SEO and AI from one dedicated developer." />
-    <meta name="theme-color" content="#F1F1EE" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jibin Johnson | Web Developer, SEO Specialist &amp; AI Developer</title>
+  <meta name="description" content="Jibin Johnson builds fast websites, grows Google visibility and creates AI chatbots for businesses. Websites, SEO and AI from one dedicated developer." />
+  <meta name="theme-color" content="#F1F1EE" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/orbit.css" />
+  <link rel="stylesheet" href="css/about.css" />
+
+  <!-- Scripts (deferred: run in order after the HTML is parsed) -->
+  <script src="js/icons.js" defer></script>
+  <script src="js/header.js" defer></script>
+  <script src="js/orbit.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="js/about.js" defer></script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ============================== HEADER ============================== -->
+  <!-- Absolute, not fixed: the header sits over the top of the page and scrolls away with it -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="brand" aria-label="Jibin Johnson, home">
+        Jibin Johnson
+        <span class="brand__dot" aria-hidden="true"></span>
+      </a>
+
+      <!-- Primary navigation: inline on desktop, dropdown panel on mobile -->
+      <nav id="primary-nav" class="nav" aria-label="Main">
+        <ul class="nav__list">
+          <li><a href="/" class="pill" aria-current="page">Home</a></li>
+          <li><a href="/about/" class="pill">About</a></li>
+          <li><a href="/portfolio/" class="pill">Work</a></li>
+
+          <li class="services" data-services>
+            <button type="button" class="pill services__toggle" aria-expanded="false" aria-controls="services-menu">
+              Services
+              <svg class="services__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+            </button>
+
+            <div id="services-menu" class="services__menu">
+              <div class="services__group">
+                <p class="services__heading">Kerala</p>
+                <a href="/services/web-developer-kerala/">Web Developer in Kerala</a>
+                <a href="/services/seo-specialist-kerala/">SEO Specialist in Kerala</a>
+                <a href="/services/seo-services-kerala/">SEO Services in Kerala</a>
+                <a href="/services/full-stack-developer-kerala/">Full Stack Developer in Kerala</a>
+                <a href="/services/ai-developer-kerala/">AI Developer in Kerala</a>
+                <a href="/services/freelance-website-developer-kerala/">Freelance Website Developer</a>
+              </div>
+              <div class="services__group">
+                <p class="services__heading">Trivandrum</p>
+                <a href="/services/web-developer-trivandrum/">Web Developer in Trivandrum</a>
+                <a href="/services/web-developer-trivandrum/#full-stack">Full Stack Developer in Trivandrum</a>
+                <a href="/services/seo-specialist-trivandrum/">SEO Specialist in Trivandrum</a>
+                <a href="/services/seo-services-trivandrum/">SEO Services in Trivandrum</a>
+                <a href="/services/ai-developer-kerala/#trivandrum">AI Developer in Trivandrum</a>
+              </div>
+              <a href="/services/" class="services__promo">
+                <span class="services__promo-label">One partner</span>
+                <span class="services__promo-title">Websites, rankings and AI tools, together.</span>
+                <span class="services__promo-link">View all services →</span>
+              </a>
+            </div>
+          </li>
+
+          <li><a href="/blog/" class="pill">Blog</a></li>
+          <li><a href="/contact/" class="pill">Contact</a></li>
+        </ul>
+
+        <a href="/contact/" class="nav__cta">
+          Start a Project
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+        </a>
+      </nav>
+
+      <div class="site-header__actions">
+        <a href="/contact/" class="header-cta">
+          Start a Project
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+        </a>
+        <button type="button" class="burger" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- =============================== HERO =============================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <!-- Soft light behind the portrait -->
+      <div class="hero__glow" aria-hidden="true"></div>
+
+      <!-- Headline + CTAs -->
+      <div class="hero__copy">
+        <h1 id="hero-title" class="hero__title rise" style="--delay: .05s">
+          <span>Thoughtfully designed</span>
+          <em>websites for established brands.</em>
+        </h1>
+
+        <div class="hero__actions rise" style="--delay: .18s">
+          <a href="/contact/" class="btn btn--primary">
+            Start a project
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </a>
+          <a href="https://wa.me/917736208172" target="_blank" rel="noopener" class="btn btn--ghost">
+            <span class="btn__chip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19l1.1-3.3A7 7 0 1 1 8.4 18z"/></svg>
+            </span>
+            <span><span class="hide-xs">Chat on </span>WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Portrait stage: fills the rest of the screen, never under the CTAs.
+           The portrait never moves; only the orbiting cards do. -->
+      <div class="hero__stage">
+        <div class="hero__portrait">
+          <!-- Portrait and orbiting glass cards share one 3D scene (built by js/orbit.js):
+               the cards revolve around the head and the portrait hides them as they pass behind it -->
+          <div class="orbit" data-orbit>
+            <div class="orbit__scene">
+              <div class="orbit__subject">
+                <img
+                  src="assets/img/portrait.png"
+                  alt=""
+                  width="1029"
+                  height="1046"
+                  fetchpriority="high"
+                  draggable="false"
+                  class="hero__img"
+                />
+              </div>
+              <div class="orbit__ring" aria-hidden="true" data-orbit-ring></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================== ABOUT ==============================
+         Entered by a camera push into the hero (js/about.js): the hero pins, the
+         portrait and cards zoom toward the face, fade out and the page turns #121412.
+         This section continues on the same #121412.
+         Every animated state is set in JS, so without JS or with reduced motion
+         all content shows statically. -->
+    <section id="about" class="about about-story" aria-labelledby="about-title">
+      <h2 id="about-title" class="visually-hidden">About Jibin Johnson</h2>
+
+      <!-- Everything below is held still on the black screen while the section rises in,
+           and revealed in sequence over that scroll (js/about.js) -->
+      <div class="about-story__inner" data-about-inner>
+
+      <!-- Story (one screen): portrait left; text with the stats under it on the right -->
+      <div class="story container" data-story>
+        <div class="story__media">
+          <figure class="story__frame">
+            <!-- Colour photo: it goes from grayscale to colour as the section arrives (js/about.js) -->
+            <img src="assets/img/about-portrait.jpg" alt="Jibin Johnson in an olive shirt, smiling at his desk with a laptop, notebook and wristwatch" width="1086" height="1448" loading="lazy" decoding="async" data-story-img />
+          </figure>
+        </div>
+
+        <div class="story__text">
+          <p class="story__lead" data-reveal>I’m Jibin, a designer and developer working with brands that have already earned their reputation.</p>
+          <p class="story__body" data-reveal>You don’t need a website that shouts. You need one that holds its ground: considered, precise, and so well made that it says everything without trying.</p>
+          <p class="story__body" data-reveal>I don’t chase trends. Trends fade. I focus on what lasts: clear structure, deliberate typography, generous space, and code built to perform. Every detail is there for a reason, and nothing is there by accident.</p>
+          <p class="story__body" data-reveal>I handle design and development myself, so nothing gets lost between the idea and the finished site.</p>
+          <p class="story__close" data-reveal>The result is simple: your quality becomes <em>obvious.</em></p>
+          <!-- Stats, under the text (count up as they reveal). Final values are in the HTML for no-JS / reduced motion. -->
+          <div class="stats">
+            <dl class="stats__grid">
+              <div class="stat"><dt class="stat__label">Companies</dt><dd class="stat__value" data-count="2" data-suffix="+">2+</dd></div>
+              <div class="stat"><dt class="stat__label">Projects</dt><dd class="stat__value" data-count="10" data-suffix="+">10+</dd></div>
+              <div class="stat"><dt class="stat__label">Years Experience</dt><dd class="stat__value" data-count="1" data-suffix="+">1+</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </section>
+  </main>
+</body>
 </html>

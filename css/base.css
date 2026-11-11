@@ -1,0 +1,125 @@
+/* ==========================================================================
+   base.css — design tokens, reset and shared utilities
+   60 · 30 · 10
+     60%  canvas  #F1F1EE + translucent white glass
+     30%  ink     #1F2321
+     10%  sage    #5E7764 (CTA) · #2F4536 (italic headline) · green icon tiles
+   ========================================================================== */
+
+:root {
+  --color-canvas: #F1F1EE;
+  --color-canvas-raise: #F8F8F6;
+  --color-canvas-sink: #E3E5E1;
+  --color-ink: #1F2321;
+  --color-ink-2: #3A3E3C;
+  --color-ink-mute: #6F7572;
+  --color-sage: #5E7764;
+  --color-sage-deep: #2F4536;
+  --color-sage-dot: #6E9A70;
+  --color-sage-soft: #D9E1D6;
+  --color-sage-tile: #CDD9CA;
+
+  --font-serif: "Instrument Serif", "Times New Roman", serif;
+  --font-sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --ease-premium: cubic-bezier(0.2, 0.7, 0.1, 1);
+
+  --gutter: clamp(16px, 5.1vw, 82px);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; border: 0 solid; }
+
+html {
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+h1, h2, h3, h4 { font-size: inherit; font-weight: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--color-sage);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ---------- Shared utilities ---------- */
+.icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-canvas);
+  font-weight: 600;
+  transition: top .2s;
+}
+.skip-link:focus { top: 16px; }
+
+/* Hidden visually, still read by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Page container: same width and left edge as the header (header.css .site-header__inner) */
+.container {
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Lenis smooth scroll (js/about.js): it drives the scroll itself, so native smoothing must be
+   off whenever Lenis is running. Otherwise ScrollTrigger's measuring jumps during a refresh
+   (e.g. after a lazy image loads) are animated, and pins are measured from the wrong place. */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Dark scope: re-maps the tokens so a section renders light-on-black */
+.on-dark {
+  --color-canvas: #0B0C0B;
+  --color-canvas-raise: #141614;
+  --color-canvas-sink: #1C1F1D;
+  --color-ink: #F1F1EE;
+  --color-ink-2: #C7CBC7;
+  --color-ink-mute: #8C928E;
+  --color-sage: #9DBB9F;
+  --color-sage-deep: #B8CDB6;
+  --color-sage-dot: #8FBF91;
+  --color-sage-soft: #26302A;
+  color: var(--color-ink);
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
